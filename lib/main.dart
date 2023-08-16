@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_rating/meal_api.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 void main() {
@@ -68,7 +69,12 @@ class _MyAppState extends State<MyApp> {
             ),
             ElevatedButton(
               onPressed: enabled
-                  ? () {
+                  ? () async {
+                      var api = MealApi();
+                      var evalDate = DateTime.now().toString().split(' ')[0];
+                      var res =
+                          await api.insert(evalDate, rate, controller.text);
+                      print(res);
                       score.add(
                         Score(
                           rate: rate,
