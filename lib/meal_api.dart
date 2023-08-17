@@ -26,4 +26,15 @@ class MealApi {
       return 'false';
     }
   }
+
+  Future<dynamic> getList({required evalDate}) async {
+    var site = "$url?mode=list&eval_date=$evalDate";
+    var response = await http.get(Uri.parse(site));
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body) as Map<String, dynamic>;
+      return data['data']['list'];
+    } else {
+      return [];
+    }
+  }
 }
